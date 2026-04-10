@@ -1,0 +1,180 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+.page-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  flex: 1.2;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-10%, -10%) scale(0.4);
+  }
+  50% {
+    transform: translate(0%, 0%) scale(1.5);
+  }
+}
+
+.welcome-text {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.right-side {
+  display: flex;
+  flex: 0.8;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c3e50;
+  gap: 1.5rem;
+}
+
+.btn {
+  width: 20rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.register-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.login-btn {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+
+.name {
+  color: #3498db;
+  margin-left: 140px;
+  font-size: 5rem;
+}
+
+.highlight {
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: #555;
+}
+
+.divider {
+  width: 5vw;
+  height: 100%;
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(
+    to right,
+    #2b2b2b,
+    #3a3a3a,
+    #2b2b2b
+  );
+
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 2px;
+  height: 200%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 20px,
+    #f5f5f5 20px,
+    #f5f5f5 40px
+  );
+
+  opacity: 0.9;
+}
+
+.car {
+  position: absolute;
+  left: 50%;
+  height: 7vh;
+  width: 4vw;
+  transform: translate(-50%, -120%);
+  animation: drive 4s linear infinite;
+}.car {
+   position: absolute;
+   left: 50%;
+   height: 7vh;
+   width: 4vw;
+   transform: translate(-50%, -120%);
+   animation: drive 4s linear infinite;
+ }
+
+.lane1 {
+  left: 25%;
+}
+
+.lane2 {
+  left: 75%;
+}
+
+@keyframes drive {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
