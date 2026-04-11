@@ -1,13 +1,28 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <input [(ngModel)]="loginData.username" placeholder="Username" type="text">
-  <input [(ngModel)]="loginData.password" placeholder="Password" type="password">
+<div class="form-container">
+  <div class="register-card">
+    <div class="form-header">
+      <h2>Log into your account</h2>
+    </div>
 
-  <button (click)='onLogin()'>Sign In</button>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" [(ngModel)]="userData.username" placeholder="Enter username">
+    </div>
 
-  @if (message) {
-    <p>{{ message }}</p>
-  } @else {
-    <p>Please enter your credentials.</p>
-  }
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="userData.password" placeholder="Enter password">
+    </div>
+
+    @if (errorMessage) {
+      <p class="error-msg">{{ errorMessage }}</p>
+    }
+
+    <button class="signup-btn" (click)="onLogin()">Login</button>
+
+    <p class="footer-text">
+      Don't have an account?
+      <span (click)="goToRegister()" style="cursor: pointer; color: #3498db;">Register here</span>
+    </p>
+  </div>
 </div>

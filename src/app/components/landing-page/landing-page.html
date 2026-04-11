@@ -21,7 +21,28 @@
   </div>
 
   <div class="right-side">
-    <button class="btn register-btn">Register</button>
-    <button class="btn login-btn">Login</button>
+    @if (viewMode === 'buttons') {
+      <div class="button-stack">
+        <button class="btn register-btn" (click)="setMode('register')">Register</button>
+        <button class="btn login-btn" (click)="setMode('login')">Login</button>
+      </div>
+    }
+
+    @if (viewMode === 'register') {
+      <div class="slide-in">
+        <app-register
+          (cancel)="setMode('buttons')"
+          (switchToLogin)="setMode('login')">
+        </app-register>
+      </div>
+    }
+
+    @if (viewMode === 'login') {
+      <div class="slide-in">
+        <app-login
+          (cancel)="setMode('buttons')"
+          (switchToRegister)="setMode('register')"> </app-login>
+      </div>
+    }
   </div>
 </div>
