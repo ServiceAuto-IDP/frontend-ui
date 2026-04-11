@@ -1,5 +1,6 @@
 <div class="form-container">
   <div class="register-card">
+    @if (!isRegistered) {
     <div class="form-header">
       <h2>Create your account</h2>
     </div>
@@ -24,10 +25,15 @@
     }
 
     <button class="signup-btn" (click)="onRegister()">Sign Up</button>
+    } @else {
+      <div class="success-container slide-in">
+        <h2>Registration Successful!</h2>
+        <p>Your account has been created.</p>
 
-    <p class="footer-text">
-      Already have an account?
-      <span (click)="goToLogin()">Login here</span>
-    </p>
+        <button class="login-now-btn" (click)="goToLogin()">
+          Log In Now
+        </button>
+      </div>
+    }
   </div>
 </div>

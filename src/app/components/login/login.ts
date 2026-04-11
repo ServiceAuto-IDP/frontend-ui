@@ -30,20 +30,13 @@ export class Login {
       return;
     }
 
-    // 2. Check if passwords match
-    if (this.userData.password !== this.confirmPassword) {
-      this.errorMessage = "Passwords do not match!";
-      return;
-    }
-
-    // 3. Send to Backend
-    this.authService.register(this.userData).subscribe({
+    this.authService.login(this.userData).subscribe({
       next: (response) => {
-        console.log('User registered!', response);
-        this.router.navigate(['/login']);
+        console.log('User logged in!', response);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
-        this.errorMessage = "Registration failed. Username might be taken.";
+        this.errorMessage = "Login failed.";
       }
     });
   }
