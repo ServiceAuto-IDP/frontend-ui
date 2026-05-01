@@ -24,6 +24,11 @@
       <p class="error-msg">{{ errorMessage }}</p>
     }
 
+      <p class="footer-text">
+        Already have an account?
+        <span (click)="goToLogin()" style="cursor: pointer; color: #3498db;">Log in here</span>
+      </p>
+
     <button class="signup-btn" (click)="onRegister()">Sign Up</button>
     } @else {
       <div class="success-container slide-in">
