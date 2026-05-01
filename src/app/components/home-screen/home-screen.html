@@ -1,1 +1,121 @@
-<p>home-screen works!</p>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>Service<span>Auto</span></h2>
+    </div>
+    <nav class="menu">
+      <button class="menu-item active">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+      </button>
+      <button class="menu-item">
+        <i class="fa-solid fa-car"></i> My Garage
+      </button>
+      <button class="menu-item">
+        <i class="fa-solid fa-clipboard-list"></i> Service Orders
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="menu-item logout">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-layout">
+    <header class="top-header">
+      <div class="page-title">
+        <h1>Welcome back!</h1>
+      </div>
+    </header>
+
+    <section class="content-area">
+      <div class="dashboard-grid">
+        <div class="content-card action-card" (click)="showDialog()">
+          <i class="fa-solid fa-circle-plus"></i>
+          <h3>Register New Car</h3>
+          <p>Add a vehicle to your garage to start a service request.</p>
+        </div>
+
+        <div class="content-card">
+          <h3>Active Requests</h3>
+          <div class="empty-state">
+            <p>No active service orders found.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  @if (displayVehicleDialog) {
+    <div class="dialog-overlay" (click)="onOverlayClick($event)">
+      <div class="dialog">
+
+        <div class="dialog-header">
+          <h2>Register New Car</h2>
+          <button class="dialog-close" (click)="closeDialog()" [disabled]="isSubmitting">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="dialog-body">
+          <form [formGroup]="vehicleForm">
+
+            <div class="field">
+              <label for="licensePlate">License Plate</label>
+              <input
+                id="licensePlate"
+                type="text"
+                formControlName="licensePlate"
+                placeholder="e.g. B 123 ABC"
+                [class.input-error]="isFieldInvalid('licensePlate')" />
+              @if (isFieldInvalid('licensePlate')) {
+                <small class="error-msg">{{ getFieldError('licensePlate') }}</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="brand">Brand</label>
+              <input
+                id="brand"
+                type="text"
+                formControlName="brand"
+                placeholder="e.g. Toyota"
+                [class.input-error]="isFieldInvalid('brand')" />
+              @if (isFieldInvalid('brand')) {
+                <small class="error-msg">{{ getFieldError('brand') }}</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="model">Model</label>
+              <input
+                id="model"
+                type="text"
+                formControlName="model"
+                placeholder="e.g. Corolla"
+                [class.input-error]="isFieldInvalid('model')" />
+              @if (isFieldInvalid('model')) {
+                <small class="error-msg">{{ getFieldError('model') }}</small>
+              }
+            </div>
+
+          </form>
+        </div>
+
+        <div class="dialog-footer">
+          <button class="btn-cancel" (click)="closeDialog()" [disabled]="isSubmitting">
+            Cancel
+          </button>
+          <button class="btn-submit" (click)="onSubmit()" [disabled]="isSubmitting">
+            @if (isSubmitting) {
+              <i class="fa-solid fa-spinner fa-spin"></i> Registering...
+            } @else {
+              <i class="fa-solid fa-plus"></i> Register Car
+            }
+          </button>
+        </div>
+
+      </div>
+    </div>
+  }
+</div>
