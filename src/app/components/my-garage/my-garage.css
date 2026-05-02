@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  height: 100vh;
+  background-color: #f4f7f6;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100%;
+}

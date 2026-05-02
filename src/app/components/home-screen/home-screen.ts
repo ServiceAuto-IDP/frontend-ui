@@ -1,25 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VehicleService } from '../../services/vehicle.service';
+import { MenuSidebar } from '../menu-sidebar/menu-sidebar';
+import { AuthService } from '../../services/auth.service';
+import { ServiceRequestService } from '../../services/service-request.service';
 
 @Component({
   selector: 'app-home-screen',
   imports: [
     ReactiveFormsModule,
+    MenuSidebar
   ],
   templateUrl: './home-screen.html',
   styleUrl: './home-screen.css',
 })
-export class HomeScreen {
+export class HomeScreen implements OnInit {
   displayVehicleDialog: boolean = false;
   isSubmitting: boolean = false;
   vehicleForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  username: string | null = '';
+
+  showServiceForm: boolean = false;
+  userVehicles: any[] = [];
+  serviceOrderForm: FormGroup;
+  todayDate: string = new Date().toISOString().split('T')[0];
+
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private vehicleService: VehicleService,
+              private serviceRequestService: ServiceRequestService) {
     this.vehicleForm = this.fb.group({
       licensePlate: ['', [Validators.required]],
       brand: ['', [Validators.required]],
       model: ['', [Validators.required]]
+    });
+
+    this.serviceOrderForm = this.fb.group({
+      vehicleId: [null, Validators.required],
+      serviceType: ['', Validators.required],
+      startDate: ['', [Validators.required]]
+    });
+  }
+
+  ngOnInit() {
+    this.authService.currentUser$.subscribe(name => {
+      this.username = name;
     });
   }
 
@@ -41,9 +67,10 @@ export class HomeScreen {
     return 'This field is required';
   }
 
-  onOverlayClick(event: MouseEvent): void {
+  onOverlayClick(event: MouseEvent) {
     if ((event.target as HTMLElement).classList.contains('dialog-overlay')) {
       this.closeDialog();
+      this.closeServiceDialog();
     }
   }
 
@@ -52,5 +79,32 @@ export class HomeScreen {
       this.isSubmitting = true;
       console.log(this.vehicleForm.value);
     }
+  }
+
+  openServiceOrder() {
+    this.showServiceForm = true;
+    // this.vehicleService.getVehiclesForUser().subscribe(vehicles => {
+    //   this.userVehicles = vehicles;
+    //   this.showServiceForm = true;
+    // });
+  }
+
+  onServiceSubmit() {
+    this.showServiceForm = false;
+    // if (this.serviceOrderForm.valid) {
+    //   this.serviceRequestService.createRequest(this.serviceOrderForm.value).subscribe(() => {
+    //     this.showServiceForm = false;
+    //   });
+    // }
+  }
+
+  closeServiceDialog() {
+    this.showServiceForm = false;
+    this.serviceOrderForm.reset({ vehicleId: null, serviceType: '' });
+  }
+
+  isServiceFieldInvalid(field: string): boolean {
+    const control = this.serviceOrderForm.get(field);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }
