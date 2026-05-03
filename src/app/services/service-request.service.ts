@@ -6,7 +6,7 @@ import { ServiceRequestModel } from '../models/service-request.model';
 
 @Injectable({ providedIn: 'root' })
 export class ServiceRequestService {
-  private apiUrl = 'http://localhost:8080/api/client/requests';
+  private apiUrl = 'http://localhost:8000/api/client/requests';
 
   constructor(private http: HttpClient) {}
 

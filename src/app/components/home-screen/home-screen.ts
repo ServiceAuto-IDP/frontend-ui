@@ -4,6 +4,7 @@ import { VehicleService } from '../../services/vehicle.service';
 import { MenuSidebar } from '../menu-sidebar/menu-sidebar';
 import { AuthService } from '../../services/auth.service';
 import { ServiceRequestService } from '../../services/service-request.service';
+import { VehicleModel } from '../../models/vehicle.model';
 
 @Component({
   selector: 'app-home-screen',
@@ -77,7 +78,21 @@ export class HomeScreen implements OnInit {
   onSubmit() {
     if (this.vehicleForm.valid) {
       this.isSubmitting = true;
-      console.log(this.vehicleForm.value);
+
+      const vehicleData: VehicleModel = this.vehicleForm.value;
+
+      this.vehicleService.registerVehicle(vehicleData).subscribe({
+        next: (response) => {
+          this.userVehicles.push(response);
+
+          this.closeDialog();
+          this.isSubmitting = false;
+        },
+        error: (err) => {
+          console.error('Registration failed', err);
+          this.isSubmitting = false;
+        }
+      });
     }
   }
 
