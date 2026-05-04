@@ -52,7 +52,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #3498db;
+  border: 2px solid #2c3e50;
 }
 
 .content-area {
@@ -209,7 +209,7 @@
 }
 
 .input-group input:focus {
-  border-color: #3498db;
+  border-color: #2c3e50;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.12);
 }
 
@@ -246,7 +246,7 @@
   padding: 9px 18px;
   border: none;
   border-radius: 8px;
-  background: #3498db;
+  background: #2c3e50;
   color: #fff;
   font-size: 0.9rem;
   font-weight: 600;
@@ -355,7 +355,7 @@
 }
 
 .field input:focus {
-  border-color: #3498db;
+  border-color: #2c3e50;
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.12);
 }
 
@@ -399,7 +399,7 @@
   padding: 9px 18px;
   border: none;
   border-radius: 8px;
-  background: #3498db;
+  background: #2c3e50;
   color: #fff;
   font-size: 0.9rem;
   font-weight: 600;
@@ -440,6 +440,6 @@
 
 .dialog-body select:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: #2c3e50;
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
