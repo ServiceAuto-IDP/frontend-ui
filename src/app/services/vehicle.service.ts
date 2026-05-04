@@ -18,6 +18,10 @@ export class VehicleService {
   }
 
   getVehiclesForUser(): Observable<VehicleModel[]> {
-    return this.http.get<VehicleModel[]>(this.apiUrl);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<VehicleModel[]>(this.apiUrl, { headers });
   }
 }

@@ -1,3 +1,110 @@
 <div class="dashboard-container">
   <app-menu-sidebar></app-menu-sidebar>
+
+  <div class="main-layout">
+    <header class="top-header">
+      <div class="page-title">
+        <h1>My Vehicles</h1>
+      </div>
+      <button class="add-btn" (click)="showDialog()">+ Add Vehicle</button>
+    </header>
+
+    @if (userVehicles.length > 0) {
+      <div class="vehicles-grid">
+        @for (vehicle of userVehicles; track vehicle.id) {
+          <div class="vehicle-card">
+            <div class="vehicle-card-top">
+              <span class="plate-badge">{{ vehicle.licensePlate }}</span>
+            </div>
+            <div class="vehicle-card-body">
+              <p class="vehicle-brand">{{ vehicle.brand }}</p>
+              <p class="vehicle-model">{{ vehicle.model }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No vehicles registered yet.</p>
+      </div>
+    }
+  </div>
+
+  @if (displayVehicleDialog) {
+    <div class="dialog-overlay" (click)="onOverlayClick($event)">
+      <div class="dialog">
+
+        <div class="dialog-header">
+          <h2>Register New Car</h2>
+          <button class="dialog-close" (click)="closeDialog()" [disabled]="isSubmitting">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="dialog-body">
+          <form [formGroup]="vehicleForm">
+
+            <div class="field">
+              <label for="licensePlate">License Plate</label>
+              <input
+                id="licensePlate"
+                type="text"
+                formControlName="licensePlate"
+                placeholder="e.g. B 123 ABC"
+                [class.input-error]="isFieldInvalid('licensePlate')" />
+              @if (isFieldInvalid('licensePlate')) {
+                <small class="error-msg">{{ getFieldError('licensePlate') }}</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="brand">Brand</label>
+              <input
+                id="brand"
+                type="text"
+                formControlName="brand"
+                placeholder="e.g. Toyota"
+                [class.input-error]="isFieldInvalid('brand')" />
+              @if (isFieldInvalid('brand')) {
+                <small class="error-msg">{{ getFieldError('brand') }}</small>
+              }
+            </div>
+
+            <div class="field">
+              <label for="model">Model</label>
+              <input
+                id="model"
+                type="text"
+                formControlName="model"
+                placeholder="e.g. Corolla"
+                [class.input-error]="isFieldInvalid('model')" />
+              @if (isFieldInvalid('model')) {
+                <small class="error-msg">{{ getFieldError('model') }}</small>
+              }
+            </div>
+
+          </form>
+        </div>
+
+        <div class="dialog-footer">
+          <button class="btn-cancel" (click)="closeDialog()" [disabled]="isSubmitting">
+            Cancel
+          </button>
+
+          <button
+            class="btn-submit"
+            (click)="onSubmit()"
+            [disabled]="vehicleForm.invalid || isSubmitting">
+
+            @if (isSubmitting) {
+              <i class="fa-solid fa-spinner fa-spin"></i> Registering...
+            } @else {
+              <i class="fa-solid fa-plus"></i> Register Car
+            }
+          </button>
+        </div>
+
+      </div>
+    </div>
+  }
 </div>
