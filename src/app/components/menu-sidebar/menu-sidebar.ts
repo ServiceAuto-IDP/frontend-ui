@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu-sidebar',
@@ -7,4 +8,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './menu-sidebar.html',
   styleUrl: './menu-sidebar.css',
 })
-export class MenuSidebar {}
+export class MenuSidebar {
+  constructor(private router: Router, private authService: AuthService) {}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+}
